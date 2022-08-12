@@ -12,7 +12,20 @@ $chars = [];
 
 // GETTING DATA FROM HTTP REQUEST
 $add = $_REQUEST['id'];
-$var = $_REQUEST['var'];
+$dataString = $_REQUEST['data'];
+
+// PARSING ADDITIONAL DATA
+$dataParse = explode('|[1]|', $dataString);
+$metadata = [];
+foreach ($dataParse as $key=>$value) {
+    $dataExp = explode('|[>]|', $value);
+    $dataProp = $dataExp[0];
+    $dataValue = $dataExp[1];
+    $metadata[$dataProp] = $dataValue;
+}
+
+// GETTING VALUES FROM METADATA ARRAY
+$var = $metadata['var'];
 
 // GETTING CHARACTER DATA
 if (file_exists($add.'-mk')) {
