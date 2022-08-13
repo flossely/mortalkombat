@@ -1,20 +1,31 @@
 <?php
 
-// GETTING CURRENT YEAR FROM FILE
+if (file_exists('paradigm')) {
+    $paradigm = file_get_contents('paradigm');
+} else {
+    $paradigm = 'default';
+}
+$paradigmFile = file_get_contents($paradigm.'.par');
+$paradigmArr = explode('|[1]|', $paradigmFile);
+$paradigmData = [];
+foreach ($paradigmArr as $key=>$value) {
+    $paradigmExp = explode('|[>]|', $value);
+    $paradigmElemProp = $paradigmExp[0];
+    $paradigmElemVal = $paradigmExp[1];
+    $paradigmData[$paradigmElemProp] = $paradigmElemVal;
+}
+
 if (file_exists('year')) {
     $today = file_get_contents('year');
 } else {
-    $today = -2000;
+    $today = $paradigmData['starting_year'];
 }
 
-// CREATING CHARACTERS ARRAY
 $chars = [];
 
-// GETTING DATA FROM HTTP REQUEST
 $add = $_REQUEST['id'];
 $dataString = $_REQUEST['data'];
 
-// PARSING ADDITIONAL DATA
 $dataParse = explode('|[1]|', $dataString);
 $metadata = [];
 foreach ($dataParse as $key=>$value) {
@@ -24,10 +35,8 @@ foreach ($dataParse as $key=>$value) {
     $metadata[$dataProp] = $dataValue;
 }
 
-// GETTING VALUES FROM METADATA ARRAY
 $var = $metadata['var'];
 
-// GETTING CHARACTER DATA
 if (file_exists($add.'-mk')) {
     chmod($add.'-mk', 0777);
     rename($add.'-mk', $add.'-mk.d');
@@ -42,39 +51,35 @@ if (file_exists($add.'-mk.d')) {
     rename($add.'-mk.d', $add.'-mk');
 }
 
-// INCLUDE DATA FROM DOWNLOADED FILE
 include $add.'.mk.php';
 
-// OVERRIDE VARIATION VALUE IF A GIVEN ONE IS NOT EXISTING
 if (!array_key_exists($var, $chars[$add]['var'])) {
     $var = array_key_first($chars[$add]['var']);
 }
 
-// CREATE OBJECT DIRECTORY IF NOT EXISTING
 if (!file_exists($add)) {
     mkdir($add);
     chmod($add, 0777);
 }
 
-// THOSE FILES ONCE CREATED IN TARGET DIRECTORY WILL NOT BE OVERRIDDEN
 if (!file_exists($add.'/coord')) {
-    file_put_contents($add.'/coord', '0;0;0');
+    file_put_contents($add.'/coord', $paradigmData['starting_coord']);
     chmod($add.'/coord', 0777);
 }
 if (!file_exists($add.'/rating')) {
-    file_put_contents($add.'/rating', 1000);
+    file_put_contents($add.'/rating', $paradigmData['starting_rating']);
     chmod($add.'/rating', 0777);
 }
 if (!file_exists($add.'/mode')) {
-    file_put_contents($add.'/mode', 0);
+    file_put_contents($add.'/mode', $paradigmData['starting_mode']);
     chmod($add.'/mode', 0777);
 }
 if (!file_exists($add.'/score')) {
-    file_put_contents($add.'/score', 0);
+    file_put_contents($add.'/score', $paradigmData['starting_score']);
     chmod($add.'/score', 0777);
 }
 if (!file_exists($add.'/money')) {
-    file_put_contents($add.'/money', 0);
+    file_put_contents($add.'/money', $paradigmData['starting_money']);
     chmod($add.'/money', 0777);
 }
 if (!file_exists($add.'/born')) {
@@ -82,6 +87,5 @@ if (!file_exists($add.'/born')) {
     chmod($add.'/born', 0777);
 }
 
-// CREATING PARADIGM-RELATED DATA
 file_put_contents($add.'/name', $chars[$add]['var'][$var]['name']);
 chmod($add.'/name', 0777);
