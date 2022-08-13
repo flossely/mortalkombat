@@ -18,7 +18,7 @@ foreach ($paradigmArr as $key=>$value) {
 if (file_exists('year')) {
     $today = file_get_contents('year');
 } else {
-    $today = $paradigmData['starting_year'];
+    $today = $paradigmData['default_year'];
 }
 
 $chars = [];
@@ -63,23 +63,23 @@ if (!file_exists($add)) {
 }
 
 if (!file_exists($add.'/coord')) {
-    file_put_contents($add.'/coord', $paradigmData['starting_coord']);
+    file_put_contents($add.'/coord', $paradigmData['default_coord']);
     chmod($add.'/coord', 0777);
 }
 if (!file_exists($add.'/rating')) {
-    file_put_contents($add.'/rating', $paradigmData['starting_rating']);
+    file_put_contents($add.'/rating', $paradigmData['default_rating']);
     chmod($add.'/rating', 0777);
 }
 if (!file_exists($add.'/mode')) {
-    file_put_contents($add.'/mode', $paradigmData['starting_mode']);
+    file_put_contents($add.'/mode', $paradigmData['default_mode']);
     chmod($add.'/mode', 0777);
 }
 if (!file_exists($add.'/score')) {
-    file_put_contents($add.'/score', $paradigmData['starting_score']);
+    file_put_contents($add.'/score', $paradigmData['default_score']);
     chmod($add.'/score', 0777);
 }
 if (!file_exists($add.'/money')) {
-    file_put_contents($add.'/money', $paradigmData['starting_money']);
+    file_put_contents($add.'/money', $paradigmData['default_money']);
     chmod($add.'/money', 0777);
 }
 if (!file_exists($add.'/born')) {
