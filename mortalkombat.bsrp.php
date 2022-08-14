@@ -89,3 +89,17 @@ if (!file_exists($add.'/born')) {
 
 file_put_contents($add.'/name', $chars[$add]['var'][$var]['name']);
 chmod($add.'/name', 0777);
+
+if (file_exists($add.'-'.$var)) {
+    chmod($add.'-'.$var, 0777);
+    rename($add.'-'.$var, $add.'-'.$var.'.d');
+}
+exec('git clone https://github.com/mortalhub/'.$add.'-'.$var);
+chmod($add.'-'.$var, 0777);
+copy('./'.$add.'-'.$var.'/favicon.png', './'.$add.'/favicon.png');
+exec('chmod -R 777 .');
+exec('rm -rf '.$add.'-'.$var);
+if (file_exists($add.'-'.$var.'.d')) {
+    chmod($add.'-'.$var.'.d', 0777);
+    rename($add.'-'.$var.'.d', $add.'-'.$var);
+}
