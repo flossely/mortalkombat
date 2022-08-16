@@ -1,19 +1,25 @@
 <?php
 
+function getParadigmInfo($id): array {
+    $str = file_get_contents($id.'.par');
+    $arr = explode('|[1]|', $str);
+    $obj = [];
+    foreach ($arr as $line) {
+        $div = explode('|[>]|', $line);
+        $prop = $div[0];
+        $val = $div[1];
+        $obj[$prop] = $val;
+    }
+    
+    return $obj;
+}
+
 if (file_exists('paradigm')) {
     $paradigm = file_get_contents('paradigm');
 } else {
     $paradigm = 'default';
 }
-$paradigmFile = file_get_contents($paradigm.'.par');
-$paradigmArr = explode('|[1]|', $paradigmFile);
-$paradigmData = [];
-foreach ($paradigmArr as $key=>$value) {
-    $paradigmExp = explode('|[>]|', $value);
-    $paradigmElemProp = $paradigmExp[0];
-    $paradigmElemVal = $paradigmExp[1];
-    $paradigmData[$paradigmElemProp] = $paradigmElemVal;
-}
+$paradigmData = getParadigmInfo($paradigm);
 
 if (file_exists('year')) {
     $today = file_get_contents('year');
@@ -21,21 +27,16 @@ if (file_exists('year')) {
     $today = $paradigmData['default_year'];
 }
 
-$chars = [];
-
-$add = $_REQUEST['id'];
-$dataString = $_REQUEST['data'];
-
-$dataParse = explode('|[1]|', $dataString);
-$metadata = [];
-foreach ($dataParse as $key=>$value) {
-    $dataExp = explode('|[>]|', $value);
-    $dataProp = $dataExp[0];
-    $dataValue = $dataExp[1];
-    $metadata[$dataProp] = $dataValue;
+if (file_exists('locale')) {
+    $localeOpen = file_get_contents('locale');
+    $locale = ($localeOpen != '') ? $localeOpen : 'en';
+} else {
+    $locale = 'en';
 }
+$lingua = $locale;
 
-$var = $metadata['var'];
+$chars = [];
+$add = $_REQUEST['id'];
 
 if (file_exists($add.'-mk')) {
     chmod($add.'-mk', 0777);
@@ -52,10 +53,6 @@ if (file_exists($add.'-mk.d')) {
 }
 
 include $add.'.mk.php';
-
-if (!array_key_exists($var, $chars[$add]['var'])) {
-    $var = array_key_first($chars[$add]['var']);
-}
 
 if (!file_exists($add)) {
     mkdir($add);
@@ -87,19 +84,23 @@ if (!file_exists($add.'/born')) {
     chmod($add.'/born', 0777);
 }
 
-file_put_contents($add.'/name', $chars[$add]['var'][$var]['name']);
+file_put_contents($add.'/name', $chars[$add]['var'][$lingua]['name']);
 chmod($add.'/name', 0777);
+file_put_contents($add.'/faction', $chars[$add]['var'][$lingua]['faction']);
+chmod($add.'/faction', 0777);
 
-if (file_exists($add.'-'.$var)) {
-    chmod($add.'-'.$var, 0777);
-    rename($add.'-'.$var, $add.'-'.$var.'.d');
+$addFactionID = $chars[$add]['faction'];
+
+if (file_exists('logos')) {
+    chmod('logos', 0777);
+    rename('logos', 'logos.d');
 }
-exec('git clone https://github.com/mortalhub/'.$add.'-'.$var);
-chmod($add.'-'.$var, 0777);
-copy('./'.$add.'-'.$var.'/favicon.png', './'.$add.'/favicon.png');
+exec('git clone -b mortalkombat https://github.com/wholemarket/logos');
+chmod('logos', 0777);
+copy('./logos/faction.'.$addFactionID.'.png', './'.$add.'/favicon.png');
 exec('chmod -R 777 .');
-exec('rm -rf '.$add.'-'.$var);
-if (file_exists($add.'-'.$var.'.d')) {
-    chmod($add.'-'.$var.'.d', 0777);
-    rename($add.'-'.$var.'.d', $add.'-'.$var);
+exec('rm -rf logos');
+if (file_exists('logos.d')) {
+    chmod('logos.d', 0777);
+    rename('logos.d', 'logos');
 }
