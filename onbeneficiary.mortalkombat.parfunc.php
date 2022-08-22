@@ -16,40 +16,5 @@ if ($subAction == "lotus_pose") {
         $spacedictus[$proLingo]["pass"] .
         "<br>";
 } elseif ($subAction == "strafe") {
-    $subDirect = rand(0, 1);
-    if ($subDirect == 0) {
-        $subX += 0.1;
-        echo $turnNum .
-            " : " .
-            $subModeSign .
-            $sub .
-            "[" .
-            $subRating .
-            "] " .
-            $spacedictus[$proLingo]["right"] .
-            " {" .
-            $subX .
-            ";" .
-            $subY .
-            ";" .
-            $subZ .
-            "}<br>";
-    } elseif ($subDirect == 1) {
-        $subX -= 0.1;
-        echo $turnNum .
-            " : " .
-            $subModeSign .
-            $sub .
-            "[" .
-            $subRating .
-            "] " .
-            $spacedictus[$proLingo]["left"] .
-            " {" .
-            $subX .
-            ";" .
-            $subY .
-            ";" .
-            $subZ .
-            "}<br>";
-    }
+    echo movement($turnNum, $subNotation, $subX, $subY, $subZ, 1, 0.1);
 }

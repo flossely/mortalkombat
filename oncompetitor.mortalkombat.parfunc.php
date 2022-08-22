@@ -1,19 +1,12 @@
 <?php
 
+$subActions = ["tract", "strafe", "pull", "punch", "kick", "grapple"];
+
 if (file_exists($sub . "/special.combo.obj")) {
     $subSpecialMoves = getObject($sub, "combo", "special");
-    $subActions = [
-        "tract",
-        "strafe",
-        "pull",
-        "punch",
-        "kick",
-        "grapple",
-        "special",
-    ];
-} else {
-    $subActions = ["tract", "strafe", "pull", "punch", "kick", "grapple"];
+    $subActions[] = "special";
 }
+
 $subActionCount = count($subActions);
 $subAction = $subActions[rand(0, $subActionCount - 1)];
 if ($subAction == "tract") {
@@ -42,42 +35,7 @@ if ($subAction == "tract") {
         $subZ .
         "}<br>";
 } elseif ($subAction == "strafe") {
-    $subDirect = rand(0, 1);
-    if ($subDirect == 0) {
-        $subX += 0.1;
-        echo $turnNum .
-            " : " .
-            $subModeSign .
-            $sub .
-            "[" .
-            $subRating .
-            "] " .
-            $spacedictus[$proLingo]["right"] .
-            " {" .
-            $subX .
-            ";" .
-            $subY .
-            ";" .
-            $subZ .
-            "}<br>";
-    } elseif ($subDirect == 1) {
-        $subX -= 0.1;
-        echo $turnNum .
-            " : " .
-            $subModeSign .
-            $sub .
-            "[" .
-            $subRating .
-            "] " .
-            $spacedictus[$proLingo]["left"] .
-            " {" .
-            $subX .
-            ";" .
-            $subY .
-            ";" .
-            $subZ .
-            "}<br>";
-    }
+    echo movement($turnNum, $subNotation, $subX, $subY, $subZ, 1, 0.1);
 } elseif ($subAction == "pull") {
     $objX = $subX;
     $objY = $subY;
