@@ -6,27 +6,27 @@ $subAction = $subActions[rand(0, $subActionCount - 1)];
 if ($subAction == "lotus_pose") {
     $subRating += 0.01;
     $subScore += 1;
-    echo turnFormat($paradigm, $today) .
+    echo $turnNum .
         " : " .
         $subModeSign .
         $sub .
         "[" .
         $subRating .
         "] " .
-        $spacedictus[$lingua]["pass"] .
+        $spacedictus[$proLingo]["pass"] .
         "<br>";
 } elseif ($subAction == "strafe") {
     $subDirect = rand(0, 1);
     if ($subDirect == 0) {
         $subX += 0.1;
-        echo turnFormat($paradigm, $today) .
+        echo $turnNum .
             " : " .
             $subModeSign .
             $sub .
             "[" .
             $subRating .
             "] " .
-            $spacedictus[$lingua]["right"] .
+            $spacedictus[$proLingo]["right"] .
             " {" .
             $subX .
             ";" .
@@ -36,14 +36,14 @@ if ($subAction == "lotus_pose") {
             "}<br>";
     } elseif ($subDirect == 1) {
         $subX -= 0.1;
-        echo turnFormat($paradigm, $today) .
+        echo $turnNum .
             " : " .
             $subModeSign .
             $sub .
             "[" .
             $subRating .
             "] " .
-            $spacedictus[$lingua]["left"] .
+            $spacedictus[$proLingo]["left"] .
             " {" .
             $subX .
             ";" .

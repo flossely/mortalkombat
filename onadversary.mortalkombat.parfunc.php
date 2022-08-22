@@ -21,14 +21,14 @@ if ($subAction == "tract") {
     $subY = $objY;
     $subZ = $objZ;
     $subScore += 10;
-    echo turnFormat($paradigm, $today) .
+    echo $turnNum .
         " : " .
         $subModeSign .
         $sub .
         "[" .
         $subRating .
         "] " .
-        $spacedictus[$lingua]["tract"] .
+        $spacedictus[$proLingo]["tract"] .
         " " .
         $objModeSign .
         $obj .
@@ -45,14 +45,14 @@ if ($subAction == "tract") {
     $subDirect = rand(0, 1);
     if ($subDirect == 0) {
         $subX += 0.1;
-        echo turnFormat($paradigm, $today) .
+        echo $turnNum .
             " : " .
             $subModeSign .
             $sub .
             "[" .
             $subRating .
             "] " .
-            $spacedictus[$lingua]["right"] .
+            $spacedictus[$proLingo]["right"] .
             " {" .
             $subX .
             ";" .
@@ -62,14 +62,14 @@ if ($subAction == "tract") {
             "}<br>";
     } elseif ($subDirect == 1) {
         $subX -= 0.1;
-        echo turnFormat($paradigm, $today) .
+        echo $turnNum .
             " : " .
             $subModeSign .
             $sub .
             "[" .
             $subRating .
             "] " .
-            $spacedictus[$lingua]["left"] .
+            $spacedictus[$proLingo]["left"] .
             " {" .
             $subX .
             ";" .
@@ -83,14 +83,14 @@ if ($subAction == "tract") {
     $objY = $subY;
     $objZ = $subZ;
     $subScore += 20;
-    echo turnFormat($paradigm, $today) .
+    echo $turnNum .
         " : " .
         $subModeSign .
         $sub .
         "[" .
         $subRating .
         "] " .
-        $spacedictus[$lingua]["pull"] .
+        $spacedictus[$proLingo]["pull"] .
         " " .
         $objModeSign .
         $obj .
@@ -107,14 +107,14 @@ if ($subAction == "tract") {
     $objRating -= 5;
     $subRating += 5;
     $subScore += 10;
-    echo turnFormat($paradigm, $today) .
+    echo $turnNum .
         " : " .
         $subModeSign .
         $sub .
         "[" .
         $subRating .
         "] " .
-        $spacedictus[$lingua]["punch"] .
+        $spacedictus[$proLingo]["punch"] .
         " " .
         $objModeSign .
         $obj .
@@ -125,14 +125,14 @@ if ($subAction == "tract") {
     $objRating -= 10;
     $subRating += 10;
     $subScore += 20;
-    echo turnFormat($paradigm, $today) .
+    echo $turnNum .
         " : " .
         $subModeSign .
         $sub .
         "[" .
         $subRating .
         "] " .
-        $spacedictus[$lingua]["kick"] .
+        $spacedictus[$proLingo]["kick"] .
         " " .
         $objModeSign .
         $obj .
@@ -143,14 +143,14 @@ if ($subAction == "tract") {
     $objRating -= 20;
     $subRating += 20;
     $subScore += 30;
-    echo turnFormat($paradigm, $today) .
+    echo $turnNum .
         " : " .
         $subModeSign .
         $sub .
         "[" .
         $subRating .
         "] " .
-        $spacedictus[$lingua]["grapple"] .
+        $spacedictus[$proLingo]["grapple"] .
         " " .
         $objModeSign .
         $obj .
@@ -188,14 +188,14 @@ if ($subAction == "tract") {
         }
         $subTactMoveCount += $subTactNum;
     }
-    echo turnFormat($paradigm, $today) .
+    echo $turnNum .
         " : " .
         $subModeSign .
         $sub .
         "[" .
         $subRating .
         "] " .
-        $spacedictus[$lingua]["special_move"] .
+        $spacedictus[$proLingo]["special_move"] .
         " (" .
         $subTactMoveCount .
         ") " .
