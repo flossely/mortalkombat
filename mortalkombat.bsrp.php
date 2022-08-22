@@ -1,39 +1,7 @@
 <?php
 
-function parseArrayFile($name): array {
-    $str = file_get_contents($name);
-    $arr = explode('|[1]|', $str);
-    $obj = [];
-    foreach ($arr as $line) {
-        $div = explode('|[>]|', $line);
-        $prop = $div[0];
-        $val = $div[1];
-        $obj[$prop] = $val;
-    }
-    
-    return $obj;
-}
-
-if (file_exists('paradigm')) {
-    $paradigm = file_get_contents('paradigm');
-} else {
-    $paradigm = 'default';
-}
-$paradigmData = parseArrayFile($paradigm.'.par');
-
-if (file_exists('year')) {
-    $today = file_get_contents('year');
-} else {
-    $today = $paradigmData['default_year'];
-}
-
-if (file_exists('locale')) {
-    $localeOpen = file_get_contents('locale');
-    $locale = ($localeOpen != '') ? $localeOpen : 'en';
-} else {
-    $locale = 'en';
-}
-$lingua = $locale;
+include 'basefunc.php';
+include 'dataload.php';
 
 $chars = [];
 $add = $_REQUEST['id'];
@@ -88,6 +56,8 @@ file_put_contents($add.'/name', $chars[$add]['var'][$lingua]['name']);
 chmod($add.'/name', 0777);
 file_put_contents($add.'/faction', $chars[$add]['var'][$lingua]['faction']);
 chmod($add.'/faction', 0777);
+file_put_contents($add.'/locale', $lingua);
+chmod($add.'/locale', 0777);
 
 $addFactionID = $chars[$add]['faction'];
 
