@@ -39,7 +39,7 @@ if ($subAction == "tract") {
     $subScore += 30;
     echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["grapple"] . ' ' . $objHalfNotation . "<br>";
 } elseif ($subAction == "shop") {
-    $msgBox = initExchange($thisParadigm, $yearToday, '.', $sub, $proMoney, $subMoney, ratioCalc($proEconVal, $subEconVal), $proUseWeapon);
+    $msgBox = initExchange($thisParadigm, $yearToday, '.', $sub, $proMoney, $subMoney, ratioCalc($proEconVal, $subEconVal), $proUseMelee);
     $proMoney = $msgBox['debit'];
     $subMoney = $msgBox['credit'];
 } elseif ($subAction == "train") {
