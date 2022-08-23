@@ -1,31 +1,61 @@
 <?php
 
+$proUseItem = shopFor('.', 'item');
+$subUseItem = shopFor($sub, 'item');
+$objUseItem = shopFor($obj, 'item');
+
+$proUseWeapon = shopFor('.', 'weapon');
+$subUseWeapon = shopFor($sub, 'weapon');
+$objUseWeapon = shopFor($obj, 'weapon');
+
 $proUseMelee = shopFor('.', 'melee');
 $subUseMelee = shopFor($sub, 'melee');
 $objUseMelee = shopFor($obj, 'melee');
 
-if ($proUseMelee !== null) {
-    $proForceType = $proUseMelee['name'];
-    $proForce = $proUseMelee['damage'];
+$proUseCombo = shopFor('.', 'combo');
+$subUseCombo = shopFor($sub, 'combo');
+$objUseCombo = shopFor($obj, 'combo');
+
+if ($proUseWeapon !== null) {
+    $proForceType = $proUseWeapon['name'];
+    $proForce = $proUseWeapon['damage'];
 } else {
     $proForceType = 'melee';
     $proForce = 1;
 }
-if ($subUseMelee !== null) {
-    $subForceType = $subUseMelee['name'];
-    $subForce = $subUseMelee['damage'];
+if ($subUseWeapon !== null) {
+    $subForceType = $subUseWeapon['name'];
+    $subForce = $subUseWeapon['damage'];
 } else {
     $subForceType = 'melee';
     $subForce = 1;
 }
-if ($objUseMelee !== null) {
-    $objForceType = $objUseMelee['name'];
-    $objForce = $objUseMelee['damage'];
+if ($objUseWeapon !== null) {
+    $objForceType = $objUseWeapon['name'];
+    $objForce = $objUseWeapon['damage'];
 } else {
     $objForceType = 'melee';
     $objForce = 1;
 }
 
-$proUseCombo = shopFor('.', 'combo');
-$subUseCombo = shopFor($sub, 'combo');
-$objUseCombo = shopFor($obj, 'combo');
+if ($proUseMelee !== null) {
+    $proMeleeType = $proUseMelee['name'];
+    $proMeleeForce = $proUseMelee['damage'];
+} else {
+    $proMeleeType = 'melee';
+    $proMeleeForce = 1;
+}
+if ($subUseMelee !== null) {
+    $subMeleeType = $subUseMelee['name'];
+    $subMeleeForce = $subUseMelee['damage'];
+} else {
+    $subMeleeType = 'melee';
+    $subMeleeForce = 1;
+}
+if ($objUseMelee !== null) {
+    $objMeleeType = $objUseMelee['name'];
+    $objMeleeForce = $objUseMelee['damage'];
+} else {
+    $objMeleeType = 'melee';
+    $objMeleeForce = 1;
+}

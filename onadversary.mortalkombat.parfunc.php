@@ -1,6 +1,9 @@
 <?php
 
-$subActions = ["tract", "strafe", "pull", "punch", "kick", "grapple", "shop", "train"];
+$subActions =
+[
+    'tract', 'strafe', 'pull', 'punch', 'kick', 'slash', 'shoot', 'grapple', 'grope', 'shop', 'train'
+];
 
 if (file_exists($sub."/special.combo.obj")) {
     $subSpecialMoves = getArrayFromFile($sub."/special.combo.obj");
@@ -34,10 +37,25 @@ if ($subAction == "tract") {
     $objRating -= 10;
     $subScore += 20;
     echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["kick"] . ' ' . $objHalfNotation . "<br>";
+} elseif ($subAction == "slash") {
+    $objRating -= $subMeleeForce;
+    $subRating += $subMeleeForce;
+    $subScore += 20;
+    echo $turnNum." : ".$subHalfNotation.' '.$subMeleeType." (".$subMeleeForce."/".$objShield.") ".$objHalfNotation."<br>";
+} elseif ($subAction == "shoot") {
+    $objRating -= $subForce;
+    $subRating += $subForce;
+    $subScore += 20;
+    echo $turnNum." : ".$subHalfNotation.' '.$subForceType." (".$subForce."/".$objShield.") ".$objHalfNotation."<br>";
 } elseif ($subAction == "grapple") {
     $objRating -= 20;
     $subScore += 30;
     echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["grapple"] . ' ' . $objHalfNotation . "<br>";
+} elseif ($subAction == "grope") {
+    $subRating += 20 * $objArousal;
+    $objRating += 20 * $subArousal;
+    $subScore += 80;
+    echo $turnNum." : ".$subHalfNotation.' '.$spacedictus[$proLingo]["grope"].' '.$objHalfNotation."<br>";
 } elseif ($subAction == "shop") {
     $msgBox = initExchange($thisParadigm, $yearToday, '.', $sub, $proMoney, $subMoney, ratioCalc($proEconVal, $subEconVal), $proUseMelee);
     $proMoney = $msgBox['debit'];
