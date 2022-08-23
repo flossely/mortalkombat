@@ -16,7 +16,7 @@ if ($subAction == "tract") {
     $subScore += 10;
     echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["tract"] . ' ' . $objFullNotation . "<br>";
 } elseif ($subAction == "strafe") {
-    $msgBox = movement($turnNum, $subNotation, $subX, $subY, $subZ, 1, 0.1);
+    $msgBox = movement($turnNum, $subHalfNotation, $subX, $subY, $subZ, 1, 0.1);
     $subX = $msgBox['x'];
     $subY = $msgBox['y'];
     $subZ = $msgBox['z'];
