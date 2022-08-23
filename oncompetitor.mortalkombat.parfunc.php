@@ -2,8 +2,8 @@
 
 $subActions = ["tract", "strafe", "pull", "punch", "kick", "grapple"];
 
-if (file_exists($sub . "/special.combo.obj")) {
-    $subSpecialMoves = getObject($sub, "combo", "special");
+if (file_exists($sub."/special.combo.obj")) {
+    $subSpecialMoves = getArrayFromFile($sub."/special.combo.obj");
     $subActions[] = "special";
 }
 
@@ -14,104 +14,30 @@ if ($subAction == "tract") {
     $subY = $objY;
     $subZ = $objZ;
     $subScore += 10;
-    echo $turnNum .
-        " : " .
-        $subModeSign .
-        $sub .
-        "[" .
-        $subRating .
-        "] " .
-        $spacedictus[$proLingo]["tract"] .
-        " " .
-        $objModeSign .
-        $obj .
-        "[" .
-        $objRating .
-        "] {" .
-        $subX .
-        ";" .
-        $subY .
-        ";" .
-        $subZ .
-        "}<br>";
+    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["tract"] . " " . $objFullNotation . "<br>";
 } elseif ($subAction == "strafe") {
-    echo movement($turnNum, $subNotation, $subX, $subY, $subZ, 1, 0.1);
+    $msgBox = movement($turnNum, $subNotation, $subX, $subY, $subZ, 1, 0.1);
+    $subX = $msgBox['x'];
+    $subY = $msgBox['y'];
+    $subZ = $msgBox['z'];
 } elseif ($subAction == "pull") {
     $objX = $subX;
     $objY = $subY;
     $objZ = $subZ;
     $subScore += 20;
-    echo $turnNum .
-        " : " .
-        $subModeSign .
-        $sub .
-        "[" .
-        $subRating .
-        "] " .
-        $spacedictus[$proLingo]["pull"] .
-        " " .
-        $objModeSign .
-        $obj .
-        "[" .
-        $objRating .
-        "] {" .
-        $objX .
-        ";" .
-        $objY .
-        ";" .
-        $objZ .
-        "}<br>";
+    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["pull"] . " " . $objFullNotation . "<br>";
 } elseif ($subAction == "punch") {
     $objRating -= 5;
     $subScore += 10;
-    echo $turnNum .
-        " : " .
-        $subModeSign .
-        $sub .
-        "[" .
-        $subRating .
-        "] " .
-        $spacedictus[$proLingo]["punch"] .
-        " " .
-        $objModeSign .
-        $obj .
-        "[" .
-        $objRating .
-        "]<br>";
+    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["punch"] . $objHalfNotation . "<br>";
 } elseif ($subAction == "kick") {
     $objRating -= 10;
     $subScore += 20;
-    echo $turnNum .
-        " : " .
-        $subModeSign .
-        $sub .
-        "[" .
-        $subRating .
-        "] " .
-        $spacedictus[$proLingo]["kick"] .
-        " " .
-        $objModeSign .
-        $obj .
-        "[" .
-        $objRating .
-        "]<br>";
+    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["kick"] . $objHalfNotation . "<br>";
 } elseif ($subAction == "grapple") {
     $objRating -= 20;
     $subScore += 30;
-    echo $turnNum .
-        " : " .
-        $subModeSign .
-        $sub .
-        "[" .
-        $subRating .
-        "] " .
-        $spacedictus[$proLingo]["grapple"] .
-        " " .
-        $objModeSign .
-        $obj .
-        "[" .
-        $objRating .
-        "]<br>";
+    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["grapple"] . $objHalfNotation . "<br>";
 } elseif ($subAction == "special") {
     $subTactMoveCount = 0;
     foreach ($subSpecialMoves as $subTactMode => $subTactVar) {
@@ -143,20 +69,5 @@ if ($subAction == "tract") {
         }
         $subTactMoveCount += $subTactNum;
     }
-    echo $turnNum .
-        " : " .
-        $subModeSign .
-        $sub .
-        "[" .
-        $subRating .
-        "] " .
-        $spacedictus[$proLingo]["special_move"] .
-        " (" .
-        $subTactMoveCount .
-        ") " .
-        $objModeSign .
-        $obj .
-        "[" .
-        $objRating .
-        "]<br>";
+    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["special"] . $objHalfNotation . "<br>";
 }
