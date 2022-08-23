@@ -14,7 +14,7 @@ if ($subAction == "tract") {
     $subY = $objY;
     $subZ = $objZ;
     $subScore += 10;
-    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["tract"] . " " . $objFullNotation . "<br>";
+    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["tract"] . ' ' . $objFullNotation . "<br>";
 } elseif ($subAction == "strafe") {
     $msgBox = movement($turnNum, $subNotation, $subX, $subY, $subZ, 1, 0.1);
     $subX = $msgBox['x'];
@@ -25,19 +25,19 @@ if ($subAction == "tract") {
     $objY = $subY;
     $objZ = $subZ;
     $subScore += 20;
-    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["pull"] . " " . $objFullNotation . "<br>";
+    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["pull"] . ' ' . $objFullNotation . "<br>";
 } elseif ($subAction == "punch") {
     $objRating -= 5;
     $subScore += 10;
-    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["punch"] . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["punch"] . ' ' . $objHalfNotation . "<br>";
 } elseif ($subAction == "kick") {
     $objRating -= 10;
     $subScore += 20;
-    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["kick"] . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["kick"] . ' ' . $objHalfNotation . "<br>";
 } elseif ($subAction == "grapple") {
     $objRating -= 20;
     $subScore += 30;
-    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["grapple"] . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["grapple"] . ' ' . $objHalfNotation . "<br>";
 } elseif ($subAction == "special") {
     $subTactMoveCount = 0;
     foreach ($subSpecialMoves as $subTactMode => $subTactVar) {
@@ -69,5 +69,5 @@ if ($subAction == "tract") {
         }
         $subTactMoveCount += $subTactNum;
     }
-    echo $turnNum . " : " . $subHalfNotation . $spacedictus[$proLingo]["special"] . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["special"] . ' ' . $objHalfNotation . "<br>";
 }
