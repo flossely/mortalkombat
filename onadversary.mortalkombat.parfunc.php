@@ -1,6 +1,6 @@
 <?php
 
-$subActions = ["tract", "strafe", "pull", "punch", "kick", "grapple"];
+$subActions = ["tract", "strafe", "pull", "punch", "kick", "grapple", "shop", "train"];
 
 if (file_exists($sub."/special.combo.obj")) {
     $subSpecialMoves = getArrayFromFile($sub."/special.combo.obj");
@@ -38,6 +38,14 @@ if ($subAction == "tract") {
     $objRating -= 20;
     $subScore += 30;
     echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["grapple"] . ' ' . $objHalfNotation . "<br>";
+} elseif ($subAction == "shop") {
+    $msgBox = initExchange($thisParadigm, $yearToday, '.', $sub, $proMoney, $subMoney, ratioCalc($proEconVal, $subEconVal), $proUseWeapon);
+    $proMoney = $msgBox['debit'];
+    $subMoney = $msgBox['credit'];
+} elseif ($subAction == "train") {
+    $msgBox = initExchange($thisParadigm, $yearToday, '.', $sub, $proMoney, $subMoney, ratioCalc($proEconVal, $subEconVal), $proUseCombo);
+    $proMoney = $msgBox['debit'];
+    $subMoney = $msgBox['credit'];
 } elseif ($subAction == "special") {
     $subTactMoveCount = 0;
     foreach ($subSpecialMoves as $subTactMode => $subTactVar) {
