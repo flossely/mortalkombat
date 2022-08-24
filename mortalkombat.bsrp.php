@@ -27,6 +27,34 @@ function parseGetData($data): array {
     return $arr;
 }
 
+function gitPerform($host = 'https://github.com', $repo, $branch, $user, $file, $dest, $name) {
+    if (file_exists($repo)) {
+        chmod($repo, 0777);
+        rename($repo, $repo.'.d');
+    }
+    if ($branch != '') {
+        exec('git clone -b '.$branch.' '.$host.'/'.$user.'/'.$repo);
+    } else {
+        exec('git clone '.$host.'/'.$user.'/'.$repo);
+    }
+    exec('chmod -R 777 .');
+    chmod($repo, 0777);
+    gitOperation($repo, $file, $dest, $name);
+    exec('chmod -R 777 .');
+    exec('rm -rf '.$repo);
+    if (file_exists($repo.'.d')) {
+        chmod($repo.'.d', 0777);
+        rename($repo.'.d', $repo);
+    }
+}
+
+function gitOperation($repo, $filename, $dest, $newname) {
+    if (file_exists('./'.$repo.'/'.$filename)) {
+        copy('./'.$repo.'/'.$filename, './'.$dest.'/'.$newname);
+        chmod('./'.$dest.'/'.$newname, 0777);
+    }
+}
+
 if (file_exists('paradigm')) {
     $paradigm = file_get_contents('paradigm');
 } else {
@@ -50,20 +78,11 @@ $lingua = $locale;
 
 $chars = [];
 $add = $_REQUEST['id'];
+$dataString = $_REQUEST['data'];
 
-if (file_exists($add.'-mk')) {
-    chmod($add.'-mk', 0777);
-    rename($add.'-mk', $add.'-mk.d');
-}
-exec('git clone https://github.com/mortalhub/'.$add.'-mk');
-chmod($add.'-mk', 0777);
-copy('./'.$add.'-mk/'.$add.'.mk.php', './'.$add.'.mk.php');
-exec('chmod -R 777 .');
-exec('rm -rf '.$add.'-mk');
-if (file_exists($add.'-mk.d')) {
-    chmod($add.'-mk.d', 0777);
-    rename($add.'-mk.d', $add.'-mk');
-}
+$objMeta = parseGetData($dataString);
+
+gitPerform('https://github.com', $add.'-mk', '', 'mortalhub', $add.'.mk.php', $add, $add.'.mk.php');
 
 include $add.'.mk.php';
 
@@ -97,25 +116,14 @@ if (!file_exists($add.'/born')) {
     chmod($add.'/born', 0777);
 }
 
+file_put_contents($add.'/locale', $lingua);
+chmod($add.'/locale', 0777);
+
 file_put_contents($add.'/name', $chars[$add]['var'][$lingua]['name']);
 chmod($add.'/name', 0777);
 file_put_contents($add.'/faction', $chars[$add]['var'][$lingua]['faction']);
 chmod($add.'/faction', 0777);
-file_put_contents($add.'/locale', $lingua);
-chmod($add.'/locale', 0777);
 
 $addFactionID = $chars[$add]['faction'];
 
-if (file_exists('logos')) {
-    chmod('logos', 0777);
-    rename('logos', 'logos.d');
-}
-exec('git clone -b mortalkombat https://github.com/wholemarket/logos');
-chmod('logos', 0777);
-copy('./logos/faction.'.$addFactionID.'.png', './'.$add.'/favicon.png');
-exec('chmod -R 777 .');
-exec('rm -rf logos');
-if (file_exists('logos.d')) {
-    chmod('logos.d', 0777);
-    rename('logos.d', 'logos');
-}
+gitPerform('https://github.com', 'logos', $paradigm, 'wholemarket', 'faction.'.$addFactionID.'.png', $add, 'favicon.png');
