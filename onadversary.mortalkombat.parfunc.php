@@ -17,9 +17,9 @@ if ($subAction == "tract") {
     $subY = $objY;
     $subZ = $objZ;
     $subScore += 10;
-    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["tract"] . ' ' . $objFullNotation . "<br>";
+    echo $turnNum . " : " . $subFullName . ' '. $spacedictus[$proLingo]["tract"] . ' ' . $objFullName . "<br>";
 } elseif ($subAction == "strafe") {
-    $msgBox = movement($turnNum, $subHalfNotation, $subX, $subY, $subZ, 1, 0.1);
+    $msgBox = movement($turnNum, $subFullName, $subX, $subY, $subZ, 1, 0.1);
     $subX = $msgBox['x'];
     $subY = $msgBox['y'];
     $subZ = $msgBox['z'];
@@ -28,34 +28,34 @@ if ($subAction == "tract") {
     $objY = $subY;
     $objZ = $subZ;
     $subScore += 20;
-    echo $turnNum . " : " . $subFullNotation . ' '. $spacedictus[$proLingo]["pull"] . ' ' . $objFullNotation . "<br>";
+    echo $turnNum . " : " . $subFullName . ' '. $spacedictus[$proLingo]["pull"] . ' ' . $objFullName . "<br>";
 } elseif ($subAction == "punch") {
     $objRating -= 5;
     $subScore += 10;
-    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["punch"] . ' ' . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subFullName . ' ' . $spacedictus[$proLingo]["punch"] . ' ' . $objFullName . "<br>";
 } elseif ($subAction == "kick") {
     $objRating -= 10;
     $subScore += 20;
-    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["kick"] . ' ' . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subFullName . ' ' . $spacedictus[$proLingo]["kick"] . ' ' . $objFullName . "<br>";
 } elseif ($subAction == "slash") {
     $objRating -= $subMeleeForce;
     $subRating += $subMeleeForce;
     $subScore += 20;
-    echo $turnNum." : ".$subHalfNotation.' '.$subMeleeType." (".$subMeleeForce."/".$objShield.") ".$objHalfNotation."<br>";
+    echo $turnNum." : ".$subFullName.' '.$subMeleeType." (".$subMeleeForce."/".$objShield.") ".$objFullName."<br>";
 } elseif ($subAction == "shoot") {
     $objRating -= $subForce;
     $subRating += $subForce;
     $subScore += 20;
-    echo $turnNum." : ".$subHalfNotation.' '.$subForceType." (".$subForce."/".$objShield.") ".$objHalfNotation."<br>";
+    echo $turnNum." : ".$subFullName.' '.$subForceType." (".$subForce."/".$objShield.") ".$objFullName."<br>";
 } elseif ($subAction == "grapple") {
     $objRating -= 20;
     $subScore += 30;
-    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["grapple"] . ' ' . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subFullName . ' ' . $spacedictus[$proLingo]["grapple"] . ' ' . $objFullName . "<br>";
 } elseif ($subAction == "grope") {
     $subRating += 20 * $objArousal;
     $objRating += 20 * $subArousal;
     $subScore += 80;
-    echo $turnNum." : ".$subHalfNotation.' '.$spacedictus[$proLingo]["grope"].' '.$objHalfNotation."<br>";
+    echo $turnNum." : ".$subFullName.' '.$spacedictus[$proLingo]["grope"].' '.$objFullName."<br>";
 } elseif ($subAction == "shop") {
     $msgBox = initExchange($thisParadigm, $yearToday, '.', $sub, $proMoney, $subMoney, ratioCalc($proEconVal, $subEconVal), $proUseMelee);
     $proMoney = $msgBox['debit'];
@@ -95,5 +95,5 @@ if ($subAction == "tract") {
         }
         $subTactMoveCount += $subTactNum;
     }
-    echo $turnNum . " : " . $subHalfNotation . ' ' . $spacedictus[$proLingo]["special"] . ' ' . $objHalfNotation . "<br>";
+    echo $turnNum . " : " . $subFullName . ' ' . $spacedictus[$proLingo]["special"] . ' ' . $objFullName . "<br>";
 }
