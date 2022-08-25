@@ -3,7 +3,7 @@
 $subActions = ['tract', 'move', 'pull', 'punch', 'kick', 'slash', 'shoot', 'grapple'];
 if (file_exists($sub."/special.combo.obj")) {
     $subSpecialMoves = getArrayFromFile($sub."/special.combo.obj");
-    $subActions[] = "special";
+    $subActions[] = "combo";
 }
 $subActionCount = count($subActions);
 $subAction = $subActions[rand(0, $subActionCount - 1)];
