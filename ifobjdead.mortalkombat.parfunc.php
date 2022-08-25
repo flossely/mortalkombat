@@ -1,12 +1,9 @@
 <?php
 
-$subActions = ["strafe"];
+$subActions = ["pass"];
 $subActionCount = count($subActions);
 $subAction = $subActions[rand(0, $subActionCount - 1)];
 
-if ($subAction == "strafe") {
-    $msgBox = movement($turnNum, $subFullName, $subX, $subY, $subZ, 1, 0.1);
-    $subX = $msgBox['x'];
-    $subY = $msgBox['y'];
-    $subZ = $msgBox['z'];
+if ($subAction == "pass") {
+    echo $turnNum." : ".$subFullName.' '.$spacedictus[$proLingo]["pass"]."<br>";
 }
