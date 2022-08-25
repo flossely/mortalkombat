@@ -1,29 +1,10 @@
 <?php
 
-$subActions = ['tract', 'move', 'pull', 'punch', 'kick', 'slash', 'shoot', 'grapple'];
+$subActions = ['punch', 'kick', 'slash', 'shoot', 'grapple'];
 $subActionCount = count($subActions);
 $subAction = $subActions[rand(0, $subActionCount - 1)];
 
-if ($subAction == "tract") {
-    $getDist = dist($subX,$subY,$subZ,$objX,$objY,$objZ);
-    $subX = $objX;
-    $subY = $objY;
-    $subZ = $objZ;
-    $subScore += $getDist;
-    echo $turnNum.' : '.$subFullName.' '.$spacedictus[$proLingo]["tract"].' ('.$getDist.') '.$objFullName.'<br>';
-} elseif ($subAction == "move") {
-    $msgBox = movement($turnNum, $subFullName, $subX, $subY, $subZ, 1, 0.1);
-    $subX = $msgBox['x'];
-    $subY = $msgBox['y'];
-    $subZ = $msgBox['z'];
-} elseif ($subAction == "pull") {
-    $getDist = dist($subX,$subY,$subZ,$objX,$objY,$objZ);
-    $objX = $subX;
-    $objY = $subY;
-    $objZ = $subZ;
-    $subScore += $getDist;
-    echo $turnNum.' : '.$subFullName.' '.$spacedictus[$proLingo]["pull"].' ('.$getDist.') '.$objFullName.'<br>';
-} elseif ($subAction == "punch") {
+if ($subAction == "punch") {
     $objRating -= $subPunchForce;
     $subRating += $subPunchForce;
     $subScore += $subPunchForce;
