@@ -4,14 +4,6 @@ $proUseItem = shopFor('.', 'item');
 $subUseItem = shopFor($sub, 'item');
 $objUseItem = shopFor($obj, 'item');
 
-$proUseWeapon = shopFor('.', 'weapon');
-$subUseWeapon = shopFor($sub, 'weapon');
-$objUseWeapon = shopFor($obj, 'weapon');
-
-$proUseMelee = shopFor('.', 'melee');
-$subUseMelee = shopFor($sub, 'melee');
-$objUseMelee = shopFor($obj, 'melee');
-
 if (file_exists($sub.'/punch.force')) {
     $subPunchForce = file_get_contents($sub.'/punch.force');
 } else {
@@ -27,6 +19,10 @@ if (file_exists($sub.'/grapple.force')) {
 } else {
     $subGrappleForce = 5;
 }
+
+$proUseWeapon = shopFor('.', 'weapon');
+$subUseWeapon = shopFor($sub, 'weapon');
+$objUseWeapon = shopFor($obj, 'weapon');
 
 if ($proUseWeapon !== null) {
     $proForceType = $proUseWeapon['name'];
@@ -49,6 +45,10 @@ if ($objUseWeapon !== null) {
     $objForceType = 'melee';
     $objForce = 1;
 }
+
+$proUseMelee = shopFor('.', 'melee');
+$subUseMelee = shopFor($sub, 'melee');
+$objUseMelee = shopFor($obj, 'melee');
 
 if ($proUseMelee !== null) {
     $proMeleeType = $proUseMelee['name'];

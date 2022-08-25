@@ -1,10 +1,6 @@
 <?php
 
 $subActions = ['tract', 'move', 'pull', 'punch', 'kick', 'slash', 'shoot', 'grapple'];
-if (file_exists($sub."/special.combo.obj")) {
-    $subSpecialMoves = getArrayFromFile($sub."/special.combo.obj");
-    $subActions[] = "combo";
-}
 $subActionCount = count($subActions);
 $subAction = $subActions[rand(0, $subActionCount - 1)];
 
@@ -66,38 +62,4 @@ if ($subAction == "tract") {
     $subRating += $subGrappleForce;
     $subScore += $subGrappleForce;
     echo $turnNum.' : '.$subFullName.' '.$spacedictus[$proLingo]["grapple"].' ('.$subGrappleForce.') '.$objFullName.'<br>';
-} elseif ($subAction == "combo") {
-    $subTactMoveCount = 0;
-    foreach ($subSpecialMoves as $subTactMode => $subTactVar) {
-        $subTactModeDiv = explode(":", $subTactMode);
-        $subTactModeAction = $subTactModeDiv[0];
-        $subTactModeTimes = $subTactModeDiv[1];
-        if ($subTactModeAction == "pull") {
-            $getDist = dist($subX,$subY,$subZ,$objX,$objY,$objZ);
-            $objX = $subX;
-            $objY = $subY;
-            $objZ = $subZ;
-            $subScore += $getDist;
-        } elseif ($subTactModeAction == "push") {
-            if ($objX > $subX) {
-                $objX + $subTactVar;
-            } else {
-                $objX - $subTactVar;
-            }
-            $subScore += $subTactVar;
-        } elseif ($subTactModeAction == "tract") {
-            $getDist = dist($subX,$subY,$subZ,$objX,$objY,$objZ);
-            $subX = $objX;
-            $subY = $objY;
-            $subZ = $objZ;
-            $subScore += $getDist;
-        } else {
-            $objRating -= $subTactVar;
-            $subRating += $subTactVar;
-            $subScore += $subTactVar;
-        }
-        $subTactNum = valuable($subTactVar) ? $subTactVar : 1;
-        $subTactMoveCount += $subTactNum;
-    }
-    echo $turnNum.' : '.$subFullName.' '.$spacedictus[$proLingo]["special"].' ('.$subTactMoveCount.') '.$objFullName.'<br>';
 }
