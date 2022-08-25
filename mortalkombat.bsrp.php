@@ -137,6 +137,14 @@ file_put_contents($add.'/name', $chars[$add]['var'][$lingua]['name']);
 chmod($add.'/name', 0777);
 file_put_contents($add.'/faction', $chars[$add]['var'][$lingua]['faction']);
 chmod($add.'/faction', 0777);
+file_put_contents($add.'/punch.force', $chars[$add]['punch']);
+chmod($add.'/punch.force', 0777);
+file_put_contents($add.'/kick.force', $chars[$add]['kick']);
+chmod($add.'/kick.force', 0777);
+file_put_contents($add.'/grapple.force', $chars[$add]['grapple']);
+chmod($add.'/grapple.force', 0777);
+file_put_contents($add.'/special.combo.obj', $chars[$add]['special']);
+chmod($add.'/special.combo.obj', 0777);
 
 $addFactionID = $chars[$add]['faction'];
 
