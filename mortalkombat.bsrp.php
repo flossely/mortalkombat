@@ -137,12 +137,28 @@ file_put_contents($add.'/name', $chars[$add]['var'][$lingua]['name']);
 chmod($add.'/name', 0777);
 file_put_contents($add.'/faction', $chars[$add]['var'][$lingua]['faction']);
 chmod($add.'/faction', 0777);
-file_put_contents($add.'/punch.force', $chars[$add]['punch']);
-chmod($add.'/punch.force', 0777);
-file_put_contents($add.'/kick.force', $chars[$add]['kick']);
-chmod($add.'/kick.force', 0777);
-file_put_contents($add.'/grapple.force', $chars[$add]['grapple']);
-chmod($add.'/grapple.force', 0777);
+
+if (isset($objMeta['punch'])) {
+    file_put_contents($add.'/punch.force', $objMeta['punch']);
+    chmod($add.'/punch.force', 0777);
+} else {
+    file_put_contents($add.'/punch.force', 2);
+    chmod($add.'/punch.force', 0777);
+}
+if (isset($objMeta['kick'])) {
+    file_put_contents($add.'/kick.force', $objMeta['kick']);
+    chmod($add.'/kick.force', 0777);
+} else {
+    file_put_contents($add.'/kick.force', 5);
+    chmod($add.'/kick.force', 0777);
+}
+if (isset($objMeta['grapple'])) {
+    file_put_contents($add.'/grapple.force', $objMeta['grapple']);
+    chmod($add.'/grapple.force', 0777);
+} else {
+    file_put_contents($add.'/grapple.force', 8);
+    chmod($add.'/grapple.force', 0777);
+}
 
 $addFactionID = $chars[$add]['faction'];
 
