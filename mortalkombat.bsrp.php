@@ -75,18 +75,16 @@ if (file_exists('paradigm')) {
     $paradigm = 'default';
 }
 $paradigmData = parseArrayFile($paradigm.'.par');
-
 if (file_exists('year')) {
     $today = file_get_contents('year');
 } else {
     $today = $paradigmData['default_year'];
 }
-
+$lazones = str_replace('./','',(glob('./*.locale')));
 if (file_exists('locale')) {
-    $localeOpen = file_get_contents('locale');
-    $locale = ($localeOpen != '') ? $localeOpen : $paradigmData['default_zone'];
+    $locale = file_get_contents('locale');
 } else {
-    $locale = $paradigmData['default_zone'];
+    $locale = basename(array_key_first($lazones), '.locale');
 }
 $lingua = $locale;
 
@@ -131,17 +129,16 @@ if (!file_exists($add.'/born')) {
 }
 file_put_contents($add.'/locale', $lingua);
 chmod($add.'/locale', 0777);
-file_put_contents($add.'/zones', $paradigmData['default_zones']);
-chmod($add.'/zones', 0777);
-$lallzones = explode(',', $paradigmData['default_zones']);
+$lallzones = str_replace($startDir.'/','',(glob($startDir.'/*.locale')));
 foreach ($lallzones as $key=>$value) {
-    if (!file_exists($add.'/'.$value.'.cur')) {
-        file_put_contents($add.'/'.$value.'.cur', $paradigmData['default_currency_sign']);
-        chmod($add.'/'.$value.'.cur', 0777);
+    $zrcut = basename($value, '.locale');
+    if (!file_exists($add.'/'.$zrcut.'.cur')) {
+        file_put_contents($add.'/'.$zrcut.'.cur', $paradigmData['default_currency_sign']);
+        chmod($add.'/'.$zrcut.'.cur', 0777);
     }
-    if (!file_exists($add.'/'.$value.'.curval')) {
-        file_put_contents($add.'/'.$value.'.curval', $paradigmData['default_currency_value']);
-        chmod($add.'/'.$value.'.curval', 0777);
+    if (!file_exists($add.'/'.$zrcut.'.curval')) {
+        file_put_contents($add.'/'.$zrcut.'.curval', $paradigmData['default_currency_value']);
+        chmod($add.'/'.$zrcut.'.curval', 0777);
     }
 }
 
