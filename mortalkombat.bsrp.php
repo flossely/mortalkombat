@@ -141,8 +141,6 @@ $objMoves = $objMeta['moves'];
 
 gitQueue('https://github.com', 'equipment', $paradigm, 'wholemarket', $objMoves, $add, '.move.obj');
 
-include $add.'.mk.php';
-
 if (!file_exists($add)) {
     mkdir($add);
     chmod($add, 0777);
@@ -175,26 +173,3 @@ if (!file_exists($add.'/born')) {
 file_put_contents($add.'/locale', $lingua);
 chmod($add.'/locale', 0777);
 intoZone($add);
-
-file_put_contents($add.'/name', $predata[$add]['var'][$lingua]['name']);
-chmod($add.'/name', 0777);
-file_put_contents($add.'/faction', $predata[$add]['var'][$lingua]['faction']);
-chmod($add.'/faction', 0777);
-
-$addFactionID = $predata[$add]['faction'];
-
-if (isset($predata[$add]['moves'][$lingua])) {
-    $addCharMoves = $predata[$add]['moves'][$lingua];
-} else {
-    $addCharMoves = [];
-}
-
-if (!empty($addCharMoves)) {
-    foreach ($addCharMoves as $key=>$value) {
-        $pred = 'name|[>]|'.$value['name'].'|[1]|damage|[>]|'.$value['damage'];
-        file_put_contents($add.'/'.$key.'.move.obj', $pred);
-        chmod($add.'/'.$key.'.move.obj', 0777);
-    }
-}
-
-gitPerform('https://github.com', 'logos', $paradigm, 'wholemarket', 'faction.'.$addFactionID.'.png', $add, 'favicon.png');
