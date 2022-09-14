@@ -109,7 +109,7 @@ if (file_exists('locale')) {
 }
 $lingua = $locale;
 
-$chars = [];
+$predata = [];
 $add = $_REQUEST['id'];
 $dataString = $_REQUEST['data'];
 
@@ -152,13 +152,15 @@ file_put_contents($add.'/locale', $lingua);
 chmod($add.'/locale', 0777);
 intoZone($add);
 
-file_put_contents($add.'/name', $chars[$add]['var'][$lingua]['name']);
+file_put_contents($add.'/name', $predata[$add]['var'][$lingua]['name']);
 chmod($add.'/name', 0777);
-file_put_contents($add.'/faction', $chars[$add]['var'][$lingua]['faction']);
+file_put_contents($add.'/faction', $predata[$add]['var'][$lingua]['faction']);
 chmod($add.'/faction', 0777);
 
-if (isset($chars[$add]['var'][$lingua]['moves'])) {
-    $addCharMoves = $chars[$add]['var'][$lingua]['moves'];
+$addFactionID = $predata[$add]['faction'];
+
+if (isset($predata[$add]['moves'][$lingua])) {
+    $addCharMoves = $predata[$add]['moves'][$lingua];
 } else {
     $addCharMoves = [];
 }
@@ -169,7 +171,5 @@ if (!empty($addCharMoves)) {
         chmod($add.'/'.$key.'.move.obj', 0777);
     }
 }
-
-$addFactionID = $chars[$add]['faction'];
 
 gitPerform('https://github.com', 'logos', $paradigm, 'wholemarket', 'faction.'.$addFactionID.'.png', $add, 'favicon.png');
