@@ -83,6 +83,30 @@ function gitPerform($host = 'https://github.com', $repo, $branch, $user, $file, 
     }
 }
 
+function gitQueue($host = 'https://github.com', $repo, $branch, $user, $files, $dest, $ext) {
+    if (file_exists($repo)) {
+        chmod($repo, 0777);
+        rename($repo, $repo.'.d');
+    }
+    if ($branch != '') {
+        exec('git clone -b '.$branch.' '.$host.'/'.$user.'/'.$repo);
+    } else {
+        exec('git clone '.$host.'/'.$user.'/'.$repo);
+    }
+    exec('chmod -R 777 .');
+    chmod($repo, 0777);
+    $filearr = explode(',', $files);
+    foreach ($filearr as $fileone) {
+        gitOperation($repo, $fileone.$ext, $dest, $fileone.$ext);
+    }
+    exec('chmod -R 777 .');
+    exec('rm -rf '.$repo);
+    if (file_exists($repo.'.d')) {
+        chmod($repo.'.d', 0777);
+        rename($repo.'.d', $repo);
+    }
+}
+
 function gitOperation($repo, $filename, $dest, $newname) {
     if (file_exists('./'.$repo.'/'.$filename)) {
         copy('./'.$repo.'/'.$filename, './'.$dest.'/'.$newname);
@@ -109,13 +133,13 @@ if (file_exists('locale')) {
 }
 $lingua = $locale;
 
-$predata = [];
 $add = $_REQUEST['id'];
 $dataString = $_REQUEST['data'];
 
 $objMeta = parseGetData($dataString);
+$objMoves = $objMeta['moves'];
 
-gitPerform('https://github.com', $add.'-mk', '', 'mortalhub', $add.'.mk.php', $add, $add.'.mk.php');
+gitQueue('https://github.com', 'equipment', $paradigm, 'wholemarket', $objMoves, $add, '.move.obj');
 
 include $add.'.mk.php';
 
