@@ -156,8 +156,11 @@ file_put_contents($add.'/name', $chars[$add]['var'][$lingua]['name']);
 chmod($add.'/name', 0777);
 file_put_contents($add.'/faction', $chars[$add]['var'][$lingua]['faction']);
 chmod($add.'/faction', 0777);
-file_put_contents($add.'/basic.moves.obj', $chars[$add]['var'][$lingua]['moves']);
-chmod($add.'/basic.moves.obj', 0777);
+
+foreach ($chars[$add]['var'][$lingua]['moves'] as $key=>$value) {
+    file_put_contents($add.'/'.$key.'.move.obj', $chars[$add]['var'][$lingua]['moves'][$key]);
+    chmod($add.'/'.$key.'.move.obj', 0777);
+}
 
 $addFactionID = $chars[$add]['faction'];
 

@@ -1,26 +1,26 @@
 <?php
 
-$proUseMoves = shopFor('.', 'moves');
-$subUseMoves = shopFor($sub, 'moves');
-$objUseMoves = shopFor($obj, 'moves');
+$proUseMove = shopFor('.', 'move');
+$subUseMove = shopFor($sub, 'move');
+$objUseMove = shopFor($obj, 'move');
 
-if ($proUseMoves !== null) {
-    $proMoveType = $proUseMoves['name'];
-    $proMoveForce = $proUseMoves['damage'];
+if ($proUseMove !== null) {
+    $proMoveType = $proUseMove['name'];
+    $proMoveForce = $proUseMove['damage'];
 } else {
     $proMoveType = 'hit';
     $proMoveForce = 1;
 }
-if ($subUseMoves !== null) {
-    $subMoveType = $subUseMoves['name'];
-    $subMoveForce = $subUseMoves['damage'];
+if ($subUseMove !== null) {
+    $subMoveType = $subUseMove['name'];
+    $subMoveForce = $subUseMove['damage'];
 } else {
     $subMoveType = 'hit';
     $subMoveForce = 1;
 }
-if ($objUseMoves !== null) {
-    $objMoveType = $objUseMoves['name'];
-    $objMoveForce = $objUseMoves['damage'];
+if ($objUseMove !== null) {
+    $objMoveType = $objUseMove['name'];
+    $objMoveForce = $objUseMove['damage'];
 } else {
     $objMoveType = 'hit';
     $objMoveForce = 1;
