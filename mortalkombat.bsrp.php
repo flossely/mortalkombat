@@ -167,7 +167,8 @@ if (isset($predata[$add]['moves'][$lingua])) {
 
 if (!empty($addCharMoves)) {
     foreach ($addCharMoves as $key=>$value) {
-        file_put_contents($add.'/'.$key.'.move.obj', $value);
+        $pred = 'name|[>]|'.$value['name'].'|[1]|damage|[>]|'.$value['damage'];
+        file_put_contents($add.'/'.$key.'.move.obj', $pred);
         chmod($add.'/'.$key.'.move.obj', 0777);
     }
 }
