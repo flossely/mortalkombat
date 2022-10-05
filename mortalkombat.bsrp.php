@@ -132,12 +132,17 @@ if (file_exists('locale')) {
     $locale = basename(array_key_first($lazones), '.locale');
 }
 $lingua = $locale;
+if (file_exists('mode')) {
+    $mode = file_get_contents('mode');
+} else {
+    $mode = $paradigmData['default_mode'];
+}
 
 $add = $_REQUEST['id'];
-$dataString = $_REQUEST['data'];
+$data = $_REQUEST['data'];
 
-$objMeta = parseGetData($dataString);
-$objMoves = $objMeta['moves'];
+$meta = parseGetData($data);
+$objMoves = $meta['moves'];
 
 gitQueue('https://github.com', 'equipment', $paradigm, 'wholemarket', $objMoves, $add, '.move.obj');
 
@@ -154,10 +159,8 @@ if (!file_exists($add.'/rating')) {
     file_put_contents($add.'/rating', $paradigmData['default_rating']);
     chmod($add.'/rating', 0777);
 }
-if (!file_exists($add.'/mode')) {
-    file_put_contents($add.'/mode', $paradigmData['default_mode']);
-    chmod($add.'/mode', 0777);
-}
+file_put_contents($add.'/mode', $mode);
+chmod($add.'/mode', 0777);
 if (!file_exists($add.'/score')) {
     file_put_contents($add.'/score', $paradigmData['default_score']);
     chmod($add.'/score', 0777);
