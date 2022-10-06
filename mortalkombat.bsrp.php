@@ -142,9 +142,6 @@ $add = $_REQUEST['id'];
 $data = $_REQUEST['data'];
 
 $meta = parseGetData($data);
-$objMoves = $meta['moves'];
-
-gitQueue('https://github.com', 'equipment', $paradigm, 'wholemarket', $objMoves, $add, '.move.obj');
 
 if (!file_exists($add)) {
     mkdir($add);
@@ -176,3 +173,11 @@ if (!file_exists($add.'/born')) {
 file_put_contents($add.'/locale', $lingua);
 chmod($add.'/locale', 0777);
 intoZone($add);
+
+if (isset($meta['name'])) {
+    file_put_contents($add.'/name', $meta['name']);
+    chmod($add.'/name', 0777);
+}
+if (isset($meta['moves'])) {
+    gitQueue('https://github.com', 'thingy', 'move', 'wholemarket', $meta['moves'], $add, '.move.obj');
+}
