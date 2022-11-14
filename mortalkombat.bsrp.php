@@ -179,5 +179,5 @@ if (isset($meta['name'])) {
     chmod($add.'/name', 0777);
 }
 if (isset($meta['moves'])) {
-    gitQueue('https://github.com', 'thingy', 'move', 'flossely', $meta['moves'], $add, '.move.obj');
+    gitQueue('https://github.com', 'thingy', 'main', 'flossely', $meta['moves'], $add, '.move.obj');
 }
